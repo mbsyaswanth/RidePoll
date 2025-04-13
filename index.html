@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RidePoll</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>🚗 RidePoll Generator</h2>
+
+  <div class="form-group">
+    <label for="ride-title">Ride Title</label>
+    <input type="text" id="ride-title" placeholder="e.g., My Morning Ride">
+  </div>
+
+  <div id="saved-rides-container" style="display: none;" class="form-group">
+    <label for="saved-rides">Or Select Saved Ride</label>
+    <select id="saved-rides"></select>
+  </div>
+
+  <div class="form-group">
+    <label for="date">📆 Date</label>
+    <input type="date" id="date">
+  </div>
+
+  <div class="form-group">
+    <label for="time">⏰ Time</label>
+    <input type="time" id="time">
+  </div>
+
+  <div class="form-group">
+    <label for="from">📍 From</label>
+    <input type="text" id="from" placeholder="e.g., Busstand (MBNR)">
+  </div>
+
+  <div class="form-group">
+    <label for="to">➡️ To</label>
+    <input type="text" id="to" placeholder="e.g., Mindspace">
+  </div>
+
+  <div class="form-group">
+    <label for="via">🛣️ Via</label>
+    <input type="text" id="via" placeholder="e.g., Shilpa layout flyover">
+  </div>
+
+  <div class="form-group">
+    <label for="vehicle">🚘 Vehicle</label>
+    <input type="text" id="vehicle" placeholder="e.g., Baleno ER 9211">
+  </div>
+
+  <div class="form-group">
+    <label for="upi">💳 UPI ID</label>
+    <input type="text" id="upi" placeholder="e.g., 7799_273__">
+  </div>
+
+  <div class="checkbox-container">
+    <label><input type="checkbox" id="save-details" checked> Save details on this device</label>
+    <button class="copy-btn" onclick="generateAndCopy()">📋 Copy Ride Message</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
