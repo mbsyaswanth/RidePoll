@@ -1,29 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const savedRides = JSON.parse(localStorage.getItem('savedRides') || '{}');
+  const savedRides = getSavedRides();
   const savedDropdown = document.getElementById('saved-rides');
-  const savedContainer = document.getElementById('saved-rides-container');
-  const rideTitleInput = document.getElementById('ride-title');
 
   if (Object.keys(savedRides).length > 0) {
-    savedContainer.style.display = 'block';
-    savedDropdown.innerHTML = '<option value="">-- Select --</option>' +
-      Object.keys(savedRides).map(title => `<option value="${title}">${title}</option>`).join('');
+    updateSavedRidesDropdown(savedRides);
   }
 
   savedDropdown.addEventListener('change', e => {
-    const ride = savedRides[e.target.value];
-    if (ride) {
-      document.getElementById('ride-title').value = e.target.value;
-      document.getElementById('date').value = ride.date;
-      document.getElementById('time').value = ride.time;
-      document.getElementById('from').value = ride.from;
-      document.getElementById('to').value = ride.to;
-      document.getElementById('via').value = ride.via;
-      document.getElementById('vehicle').value = ride.vehicle;
-      document.getElementById('upi').value = ride.upi;
-    }
+    const availableSavedRides = getSavedRides();
+    const ride = availableSavedRides[e.target.value];
+    fillRideDetails(ride);
   });
 });
+
+function getSavedRides() {
+  const savedRides = JSON.parse(localStorage.getItem('savedRides') || '{}');
+  return savedRides;
+}
+
+function updateSavedRidesDropdown(rides) {
+  const savedDropdown = document.getElementById('saved-rides');
+  savedDropdown.disabled = false;
+
+  savedDropdown.innerHTML = '<option value="">-- Select --</option>' +
+    Object.keys(rides).map(title => `<option value="${title}">${title}</option>`).join('');
+}
+
+function fillRideDetails(ride) {
+  if (ride) {
+    document.getElementById('ride-title').value = e.target.value;
+    document.getElementById('date').value = ride.date;
+    document.getElementById('time').value = ride.time;
+    document.getElementById('from').value = ride.from;
+    document.getElementById('to').value = ride.to;
+    document.getElementById('via').value = ride.via;
+    document.getElementById('vehicle').value = ride.vehicle;
+    document.getElementById('upi').value = ride.upi;
+  }
+}
 
 function formatTimeTo12Hour(time) {
   const [hour, minute] = time.split(':');
@@ -56,8 +70,10 @@ function generateAndCopy() {
     .catch(() => alert('Failed to copy message.'));
 
   if (save && title) {
-    const savedRides = JSON.parse(localStorage.getItem('savedRides') || '{}');
+    const savedRides = getSavedRides();
     savedRides[title] = { date, time, from, to, via, vehicle, upi };
     localStorage.setItem('savedRides', JSON.stringify(savedRides));
+
+    updateSavedRidesDropdown(savedRides);
   }
 }

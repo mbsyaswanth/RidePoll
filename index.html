@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RidePoll</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <h2>🚗 RidePoll Generator 📊</h2>
 
@@ -14,9 +16,11 @@
     <input type="text" id="ride-title" placeholder="e.g., My Morning Ride">
   </div>
 
-  <div id="saved-rides-container" style="display: none;" class="form-group">
+  <div id="saved-rides-container" class="form-group">
     <label for="saved-rides">Or Select Saved Ride</label>
-    <select id="saved-rides"></select>
+    <select id="saved-rides" disabled>
+      <option value="" disabled selected>Saved rides will appear here</option>
+    </select>
   </div>
 
   <div class="form-group">
@@ -61,4 +65,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
