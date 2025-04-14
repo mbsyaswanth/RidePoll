@@ -58,5 +58,6 @@ function generateAndCopy() {
   if (save && title) {
     const savedRides = JSON.parse(localStorage.getItem('savedRides') || '{}');
     savedRides[title] = { date, time, from, to, via, vehicle, upi };
+    localStorage.setItem('savedRides', JSON.stringify(savedRides));
   }
 }
