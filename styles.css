@@ -37,8 +37,18 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 32px;
   gap: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.half {
+  flex: 1;
 }
 
 .copy-btn {
