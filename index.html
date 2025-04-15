@@ -11,57 +11,64 @@
 <body>
   <h2>🚗 RidePoll Generator 📊</h2>
 
-  <div class="form-group">
-    <label for="ride-title">Ride Title</label>
-    <input type="text" id="ride-title" placeholder="e.g., My Morning Ride">
-  </div>
+  <form id="ride-form">
+    <div class="form-group">
+      <label for="ride-title">Ride Title</label>
+      <input type="text" id="ride-title" name="ride-title" placeholder="e.g., My Morning Ride" required>
+    </div>
 
-  <div id="saved-rides-container" class="form-group">
-    <label for="saved-rides">Or Select Saved Ride</label>
-    <select id="saved-rides" disabled>
-      <option value="" disabled selected>Saved rides will appear here</option>
-    </select>
-  </div>
+    <div id="saved-rides-container" class="form-group">
+      <label for="saved-rides">Or Select Saved Ride</label>
+      <select id="saved-rides" name="saved-rides" disabled>
+        <option value="" disabled selected>Saved rides will appear here</option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="date">📆 Date</label>
-    <input type="date" id="date">
-  </div>
+    <div class="form-group">
+      <label for="date">📆 Date</label>
+      <input type="date" id="date" name="date" required>
+    </div>
 
-  <div class="form-group">
-    <label for="time">⏰ Time</label>
-    <input type="time" id="time">
-  </div>
+    <div class="form-group">
+      <label for="time">⏰ Time</label>
+      <input type="time" id="time" name="time" required>
+    </div>
 
-  <div class="form-group">
-    <label for="from">📍 From</label>
-    <input type="text" id="from" placeholder="e.g., Busstand (MBNR)">
-  </div>
+    <div class="form-group">
+      <label for="from">📍 From</label>
+      <input type="text" id="from" name="from" placeholder="e.g., Busstand (MBNR)" required>
+    </div>
 
-  <div class="form-group">
-    <label for="to">➡️ To</label>
-    <input type="text" id="to" placeholder="e.g., Mindspace">
-  </div>
+    <div class="form-group">
+      <label for="to">➡️ To</label>
+      <input type="text" id="to" name="to" placeholder="e.g., Mindspace" required>
+    </div>
 
-  <div class="form-group">
-    <label for="via">🛣️ Via</label>
-    <input type="text" id="via" placeholder="e.g., Shilpa layout flyover">
-  </div>
+    <div class="form-group">
+      <label for="via">🛣️ Via</label>
+      <input type="text" id="via" name="via" placeholder="e.g., Shilpa layout flyover" required>
+    </div>
 
-  <div class="form-group">
-    <label for="vehicle">🚘 Vehicle</label>
-    <input type="text" id="vehicle" placeholder="e.g., Baleno ER 9211">
-  </div>
+    <div class="form-group">
+      <label for="vehicle">🚘 Vehicle</label>
+      <input type="text" id="vehicle" name="vehicle" placeholder="e.g., Baleno ER 9211" required>
+    </div>
 
-  <div class="form-group">
-    <label for="upi">💳 UPI ID</label>
-    <input type="text" id="upi" placeholder="e.g., 7799_273__">
-  </div>
+    <div class="form-group">
+      <label for="upi">💳 UPI ID</label>
+      <input type="text" id="upi" name="upi" placeholder="e.g., 7799_273__" required>
+    </div>
 
-  <div class="checkbox-container">
-    <label><input type="checkbox" id="save-details" checked> Save details on this device</label>
-    <button class="copy-btn" onclick="generateAndCopy()">📋 Copy Ride Message</button>
-  </div>
+    <div class="form-group">
+      <label for="note">Note</label>
+      <input type="text" id="note" name="note" placeholder="e.g., Please DM me your boarding points.">
+    </div>
+
+    <div class="checkbox-container">
+      <label><input type="checkbox" id="save-details" name="save-details" checked> Save details on this device</label>
+      <button class="copy-btn" onclick="generateAndCopy()">📋 Copy Ride Message</button>
+    </div>
+  </form>
 
   <script src="script.js"></script>
 </body>

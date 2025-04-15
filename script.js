@@ -11,11 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const ride = availableSavedRides[e.target.value];
     fillRideDetails(ride);
   });
+
+  const form = document.getElementById("ride-form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    generateAndCopy(e.target);
+  });
 });
 
 function getSavedRides() {
   const savedRides = JSON.parse(localStorage.getItem('savedRides') || '{}');
   return savedRides;
+}
+
+function setSavedRides(savedRides) {
+  localStorage.setItem('savedRides', JSON.stringify(savedRides));
 }
 
 function updateSavedRidesDropdown(rides) {
@@ -28,7 +39,7 @@ function updateSavedRidesDropdown(rides) {
 
 function fillRideDetails(ride) {
   if (ride) {
-    document.getElementById('ride-title').value = e.target.value;
+    document.getElementById('ride-title').value = ride.title;
     document.getElementById('date').value = ride.date;
     document.getElementById('time').value = ride.time;
     document.getElementById('from').value = ride.from;
@@ -36,6 +47,7 @@ function fillRideDetails(ride) {
     document.getElementById('via').value = ride.via;
     document.getElementById('vehicle').value = ride.vehicle;
     document.getElementById('upi').value = ride.upi;
+    document.getElementById('note').value = ride.note || '';
   }
 }
 
@@ -47,23 +59,29 @@ function formatTimeTo12Hour(time) {
   return `${h}:${minute} ${ampm}`;
 }
 
-function generateAndCopy() {
-  const title = document.getElementById('ride-title').value;
-  const date = document.getElementById('date').value;
-  const time = document.getElementById('time').value;
-  const from = document.getElementById('from').value;
-  const to = document.getElementById('to').value;
-  const via = document.getElementById('via').value;
-  const vehicle = document.getElementById('vehicle').value;
-  const upi = document.getElementById('upi').value;
-  const save = document.getElementById('save-details').checked;
+function generateAndCopy(form) {
+  const formData = new FormData(form);
+  const title = formData.get('ride-title');
+  const date = formData.get('date');
+  const time = formData.get('time');
+  const from = formData.get('from');
+  const to = formData.get('to');
+  const via = formData.get('via');
+  const vehicle = formData.get('vehicle');
+  const upi = formData.get('upi');
+  const note = formData.get('note');
+  const save = formData.get('save-details') === 'on';
 
   const formattedDate = new Date(date);
   const dayName = formattedDate.toLocaleDateString('en-US', { weekday: 'long' });
   const formattedDateStr = `${String(formattedDate.getDate()).padStart(2, '0')}-${String(formattedDate.getMonth() + 1).padStart(2, '0')}-${formattedDate.getFullYear()} (${dayName})`;
   const formattedTime = formatTimeTo12Hour(time);
 
-  const message = `Hi All,\n\n${title}\n📆 Date: ${formattedDateStr}\n⏰ Time: ${formattedTime}\n📍 From: ${from}\n➡️ To: ${to}\n🛣️ Via: ${via}\n🚘 Vehicle: ${vehicle}\n💳 UPI: ${upi}`;
+  let message = `Hi All,\n\n${title}\n📆 Date: ${formattedDateStr}\n⏰ Time: ${formattedTime}\n📍 From: ${from}\n➡️ To: ${to}\n🛣️ Via: ${via}\n🚘 Vehicle: ${vehicle}\n💳 UPI: ${upi}`;
+
+  if (note) {
+    message += `\n\nNote: ${note}`;
+  }
 
   navigator.clipboard.writeText(message)
     .then(() => alert('Message copied to clipboard!'))
@@ -71,8 +89,8 @@ function generateAndCopy() {
 
   if (save && title) {
     const savedRides = getSavedRides();
-    savedRides[title] = { date, time, from, to, via, vehicle, upi };
-    localStorage.setItem('savedRides', JSON.stringify(savedRides));
+    savedRides[title] = { title, date, time, from, to, via, vehicle, upi, note };
+    setSavedRides(savedRides);
 
     updateSavedRidesDropdown(savedRides);
   }
