@@ -77,7 +77,11 @@ function generateAndCopy(form) {
   const formattedDateStr = `${String(formattedDate.getDate()).padStart(2, '0')}-${String(formattedDate.getMonth() + 1).padStart(2, '0')}-${formattedDate.getFullYear()} (${dayName})`;
   const formattedTime = formatTimeTo12Hour(time);
 
-  let message = `Hi All,\n\n${title}\n📆 Date: ${formattedDateStr}\n⏰ Time: ${formattedTime}\n📍 From: ${from}\n➡️ To: ${to}\n🛣️ Via: ${via}\n🚘 Vehicle: ${vehicle}\n💳 UPI: ${upi}`;
+  let message = `Hi All,\n\n${title}\n📆 Date: ${formattedDateStr}\n⏰ Time: ${formattedTime}\n📍 From: ${from}\n➡️ To: ${to}`;
+  if (via) {
+    message += `\n🛣️ Via: ${via}`;
+  }
+  message += `\n🚘 Vehicle: ${vehicle}\n💳 UPI: ${upi}`;
 
   if (note) {
     message += `\n\nNote: ${note}`;
